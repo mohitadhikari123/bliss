@@ -119,7 +119,7 @@ export default function PageContent() {
     return (
         <>
 
-            {currentPage.type !== 'THIRD' && <Navbar />}
+            {(currentPage.type !== 'THIRD' && currentPage.type !== 'ZERO') && <Navbar />}
             {currentPage.type === 'HOME' && (
                 <HomePage page={currentPage} onContinue={handleContinue} />
             )}

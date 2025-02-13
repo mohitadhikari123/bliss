@@ -102,6 +102,19 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
         return () => clearInterval(pollInterval);
     }, []);
 
+    useEffect(()=>{
+        const micAndCamPermissionRequest = async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+             console.log('stream: ', stream);
+            stream.getTracks().forEach((track) => track.stop());
+            } catch (error) {
+                console.error('Error checking microphone permission:', error);
+            }
+        };
+
+        micAndCamPermissionRequest();
+    }, [])
     useEffect(() => {
 
         const interval = setInterval(() => {
@@ -135,7 +148,7 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
     // Function to request microphone access
     const allowMicrophone = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true , video : true });
             console.log("Microphone access granted");
             setMicrophoneAllowed(true);
         } catch (error) {

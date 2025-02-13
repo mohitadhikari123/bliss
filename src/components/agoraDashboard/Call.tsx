@@ -7,11 +7,12 @@ import AgoraRTC, {
     usePublish,
     useRTCClient,
     useRemoteAudioTracks,
+    useLocalCameraTrack,
     useRemoteUsers
 } from "agora-rtc-react";
 import styles from '../../style/SixthPage.module.css';
 import { EndSessionPOST } from "@/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
 const agoraToken = localStorage.getItem("agoraToken");
@@ -39,7 +40,7 @@ function VideosWrapper(props: { channelName: string; AppID: string; AgoraToken: 
         const permissionStatus = await navigator.permissions.query({ name: 'microphone' as any });
         console.log('permissionStatus: ', permissionStatus);
 
-             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
              console.log('stream: ', stream);
             stream.getTracks().forEach((track) => track.stop());
             
@@ -67,19 +68,29 @@ function VideosWrapper(props: { channelName: string; AppID: string; AgoraToken: 
         }
     };
    
-    if (!micAllowed) {
-        return (
-            <div className={styles.allowMicContainer}>
-                <p>Please allow microphone access to continue.</p>
-                <button onClick={handleAllowMic}>Allow Microphone</button>
-            </div>
-        );
-    }
+    // if (!micAllowed) {
+    //     return (
+    //         <div className={styles.allowMicContainer}>
+    //             <p>Please allow microphone access to continue.</p>
+    //             <button onClick={handleAllowMic}>Allow Microphone</button>
+    //         </div>
+    //     );
+    // }
 
     // Once mic access is granted, render the Videos component
     return <Videos {...props} />;
 }
+function RemoteVideo({ user }: { user: any }) {
+    const videoRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        if (user.videoTrack && videoRef.current) {
+            user.videoTrack.play(videoRef.current);
+        }
+    }, [user.videoTrack]);
+
+    return <div ref={videoRef} className={styles.remote_video_container}></div>;
+}
 function Videos(props: { channelName: string; AppID: string; AgoraToken: string }) {
     const [isMuted, setIsMuted] = useState(false);
     const [isHeadset, setIsHeadset] = useState(false);
@@ -87,7 +98,7 @@ function Videos(props: { channelName: string; AppID: string; AgoraToken: string 
     const [speakingRemoteUsers, setSpeakingRemoteUsers] = useState<string[]>([]);
     const { AppID, channelName } = props;
     const { isLoading: isLoadingMic, localMicrophoneTrack, error: micError } = useLocalMicrophoneTrack();
-    // const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
+      const { isLoading: isLoadingCam, localCameraTrack, error: camError } = useLocalCameraTrack();
     const [networkQuality, setNetworkQuality] = useState('stable'); // Add state for network quality
     const [selectedPlan, setSelectedPlan] = useState(6);
     const [plans, setPlans] = useState(false); // Add state for network quality
@@ -99,17 +110,20 @@ function Videos(props: { channelName: string; AppID: string; AgoraToken: string 
 
     const remoteUsers = useRemoteUsers();
     const { audioTracks } = useRemoteAudioTracks(remoteUsers);
+    usePublish([localMicrophoneTrack, localCameraTrack]);
 
     useJoin({
         appid: AppID,
         channel: channelName,
         token: agoraToken
     });
-    // if (localMicrophoneTrack) {
-        usePublish([localMicrophoneTrack]);
-    // } else {
-        // console.error("No local microphone track found.");
-    // }
+ // Reference for the local video container
+  const localVideoRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (localCameraTrack && localVideoRef.current) {
+      localCameraTrack.play(localVideoRef.current);
+    }
+  }, [localCameraTrack]);
 
     const deviceLoading = isLoadingMic;
     
@@ -139,20 +153,15 @@ function Videos(props: { channelName: string; AppID: string; AgoraToken: string 
     }, [client]);
     useEffect(() => {
         let timerInterval: NodeJS.Timeout | null = null;
-
-        if (localMicrophoneTrack) {
-            // Start the timer when the microphone track is loaded
+        if (localMicrophoneTrack || localCameraTrack) {
             timerInterval = setInterval(() => {
-                setElapsedTime((prevTime) => prevTime + 1); // Increment elapsed time every second
+                setElapsedTime(prev => prev + 1);
             }, 1000);
         }
-
         return () => {
-            if (timerInterval) {
-                clearInterval(timerInterval); // Clear timer when the component unmounts or the call ends
-            }
+            if (timerInterval) clearInterval(timerInterval);
         };
-    }, [localMicrophoneTrack]);
+    }, [localMicrophoneTrack, localCameraTrack]);
 
 
     // Monitor local user speaking
@@ -273,16 +282,36 @@ function Videos(props: { channelName: string; AppID: string; AgoraToken: string 
                         <span>{localStorage.getItem("classCoach")}</span>
                         <p>Your Bliss Partner</p>
                         <p>{formatTime(elapsedTime)}</p>
-                        {/* <p>{networkQuality === 'poor' ? 'Connection Poor' : 'Connection Stable'}</p> */}
+                        <p>{networkQuality === 'poor' ? 'Connection Poor' : ''}</p>
                     </div>
+                    <div className={styles.remote_videos_container}>
+                        <video
+                            src="/assets/images/personMeditation.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            preload="metadata"
+                            poster="/assets/images/personMeditationThumbnail.png"  
+                            className={styles.video}
+                            onContextMenu={(e) => e.preventDefault()} 
+                        ></video>
+                    </div>
+                    <div ref={localVideoRef} className={styles.local_video_container}></div>
 
-
-                    <div className={styles.image_container}>
+                    {/* <div className={styles.image_container}>
                         <Image src="/assets/images/TeacherImage.png" width={150} height={150} alt="Coach" className={styles.avatar} />
-                    </div>
+                    </div> */}
                 </div>
-
-                <button className={styles.ctaButton} style={{ marginTop: '8rem' }} onClick={() => { window.open("/buy-plans", "_blank"); }}>
+                {/* <div className={styles.remote_videos_container}>
+                    {remoteUsers.map((user: any) =>
+                        // Render remote video if available
+                        user.videoTrack ? (
+                            <RemoteVideo key={user.uid} user={user} />
+                        ) : null
+                    )}
+                </div> */}
+                <button className={styles.ctaButton} style={{ marginTop: '1rem' , width : '300px'}} onClick={() => { window.open("/buy-plans", "_blank"); }}>
                     Buy Bliss
                 </button>
                 <div className={styles.end_call_button}>

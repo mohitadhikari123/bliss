@@ -63,14 +63,14 @@ const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
                     <main className={styles.main}>
                         <div className={styles.content}>
                             <>
-                                <>
+                                <div style ={{width :'90%'}}>
                                     <h1 className={styles.title}>
                                         Login to continue with you meditation sessions
                                     </h1>
                                     <h2 className={styles.subTitle}>
                                         Discover a deeper connection to yourself, bliss begins here...
                                     </h2>
-                                </>
+                                </div>
                                 <form onSubmit={handleSubmit} className={styles.formContainer}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor='email'></label>

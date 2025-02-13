@@ -117,14 +117,14 @@ const BuyPlan: React.FC<BuyPlanProps> = ({ page, onContinue }) => {
                                     <div className={styles.discountContainer}><p className={styles.discount}>20% cheaper compared to </p><p className={styles.discount}>monthly option</p></div>
                                 </div>
 
-                                <button className={styles.ctaButton} onClick={handleBuy}>
+                                <button className={styles.ctaButton} style={{ marginTop: '1rem', width: '300px' }} onClick={handleBuy}>
                                     Buy
                                 </button>
                             </>
                             : <>
                                 <div className={styles.TextContainer}>
                                     <h1>Congrats!</h1>
-                                    <p>You’re now a member of bliss</p></div>
+                                    <p>You're now a member of bliss</p></div>
                                
                                 <div className={styles.videoContainer}>
                                     <video
@@ -133,6 +133,8 @@ const BuyPlan: React.FC<BuyPlanProps> = ({ page, onContinue }) => {
                                         loop
                                         muted
                                         playsInline
+                                        preload="metadata"
+                                        onContextMenu={(e) => e.preventDefault()} 
                                         className={styles.video}>
                                     </video>
                                 </div>
