@@ -6,7 +6,6 @@ Connect();
 
 export async function GET(request: NextRequest) {
   try {
-    // Extract `lsId` from query parameters
     const { searchParams } = new URL(request.url);
     const lsId = searchParams.get("lsId");
 

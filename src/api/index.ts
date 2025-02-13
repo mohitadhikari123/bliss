@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Page } from "@/types";
+import { showToast } from "@/utils/toastHelper";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const mock = true;
@@ -28,12 +29,14 @@ const RegisterPOST = async ({ user }: RegisterData) => {
   };
   try {
     const response = await axios(config);
+    console.log("response: ", response);
+    showToast("Registration successful!",'success');
     window.localStorage.setItem("accessToken", response.data.data.accessToken);
-    // console.log(JSON.stringify(response.data.data.accessToken));
   } catch (error: any) {
     if (error.code === "ECONNABORTED") {
       throw new Error("The request took too long. Please try again later.");
     } else {
+      showToast(error.response.data.error, "error");
       throw new Error("An error occurred: " + error.message);
     }
   }
@@ -49,12 +52,12 @@ const LiveSessionRequestPOST = async () => {
   };
   try {
     const response = await axios(config);
+    showToast("Request for Session is Created",'success');
     window.localStorage.setItem("LiveRequestId", response.data.data._id);
-    // console.log(JSON.stringify(response.data));
-    return response; // Return the response object
-  } catch (error) {
-    console.log(error);
-    throw error; // Ensure errors are thrown so they can be caught
+    return response; 
+  } catch (error : any) {
+    showToast(error.response.data.error, "error");
+    throw error; 
   }
 };
 
@@ -72,7 +75,7 @@ const LiveSessionRequestGET = async () => {
 
   try {
     const response = await axios(config);
-    // console.log(JSON.stringify(response.data.data.rs));
+    showToast("Waiting for Coach Confirmation", "success");
     return response;
   } catch (error) {
     console.log(error);
@@ -93,8 +96,9 @@ const ChangeStatusPOST = async () => {
   try {
     const response = await axios(config);
     window.localStorage.setItem("LiveRequestStatus", response.data.data.rs);
-    // console.log(JSON.stringify(response.data));
-    return response.data.data.rs; // Return the response object
+    showToast("Call Accepted", "success");
+
+    return response.data.data.rs; 
   } catch (error) {
     console.log(error);
     throw error; // Ensure errors are thrown so they can be caught
@@ -109,8 +113,7 @@ const AgoraTokenGET = async (lsId: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
-    data: JSON.stringify({ lsId }), 
-
+    data: JSON.stringify({ lsId }),
   };
   try {
     const response = await axios(config);
@@ -130,11 +133,11 @@ const CreateLivePOST = async (lsId: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
-    data: JSON.stringify({ lsId }), 
-
+    data: JSON.stringify({ lsId }),
   };
   try {
     const response = await axios(config);
+    showToast("Live Session Joined Successfully", "success");
     return response; // Return the response
   } catch (error) {
     console.log(error);
@@ -144,7 +147,7 @@ const CreateLivePOST = async (lsId: string) => {
 const GetLivePOST = async (lsId: string | null) => {
   const config = {
     method: "get",
-    url: `${API_BASE_URL}/liveSessionRequest/liveSession/getLiveSession?lsId=${lsId}`, 
+    url: `${API_BASE_URL}/liveSessionRequest/liveSession/getLiveSession?lsId=${lsId}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -153,7 +156,8 @@ const GetLivePOST = async (lsId: string | null) => {
 
   try {
     const response = await axios(config);
-    return response; // Return the response
+    showToast("Live Session Joined Successfully", "success");
+    return response; 
   } catch (error) {
     console.log(error);
     throw error;
@@ -168,8 +172,7 @@ const EndSessionPOST = async (lsId: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
-        data: JSON.stringify({ lsId }), 
-
+    data: JSON.stringify({ lsId }),
   };
 
   try {
@@ -179,11 +182,11 @@ const EndSessionPOST = async (lsId: string) => {
     window.localStorage.removeItem("LiveRequestStatus");
     window.localStorage.removeItem("LiveRequestId");
     console.log(JSON.stringify(response.data));
-
-    return response; // Return the response object
+    showToast("Live Session Ended Successfully", "success");
+    return response; 
   } catch (error) {
     console.log(error);
-    throw error; // Ensure errors are thrown so they can be caught
+    throw error; 
   }
 };
 
@@ -206,11 +209,12 @@ const LoginPOST = async (email: string, password: string) => {
   try {
     const response = await axios(config);
     console.log(JSON.stringify(response.data.data.rs));
-    return response; // Return the response object
-  } catch (error) {
+    showToast("Login successful!",'success');
+    return response; 
+  } catch (error : any) {
+    showToast(error.response.data.error, "error");
     console.log(error);
-    console.log(error);
-    throw error; // Ensure errors are thrown so they can be caught
+    throw error; 
   }
 };
 
@@ -223,7 +227,7 @@ export {
   AgoraTokenGET,
   EndSessionPOST,
   ChangeStatusPOST,
-  GetLivePOST
+  GetLivePOST,
 };
 
 export const fetchPages = async (): Promise<Page[]> => {

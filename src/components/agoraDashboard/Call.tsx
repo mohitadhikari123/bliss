@@ -55,7 +55,6 @@ function VideosWrapper(props: { channelName: string; AppID: string; AgoraToken: 
             
             if (audioDevices.length === 0) {
                 console.error("🚨 No audio input devices found!");
-                alert("No microphone detected. Please connect one and refresh.");
             } else {
                 setMicAllowed(true);
                 

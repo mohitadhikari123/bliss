@@ -104,6 +104,7 @@ const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
                                             className={styles.Input}
                                             value={formData.password}
                                             required
+                                            autoComplete="on"
                                             onChange={handleInputChange}
                                         />
                                     </div>
