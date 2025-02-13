@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 import Styles from '../style/SixthPage.module.css'
-import { CreateLivePOST, AgoraTokenGET, LiveSessionRequestGET, EndSessionPOST, LiveSessionRequestPOST,  ChangeStatusPOST, GetLivePOST } from "../api/index";
+import { CreateLivePOST, AgoraTokenGET, LiveSessionRequestGET, EndSessionPOST, LiveSessionRequestPOST, ChangeStatusPOST, GetLivePOST } from "../api/index";
 
 
 const Call = dynamic(() => import('./agoraDashboard/Call'), { ssr: false });
@@ -102,12 +102,12 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
         return () => clearInterval(pollInterval);
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         const micAndCamPermissionRequest = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-             console.log('stream: ', stream);
-            stream.getTracks().forEach((track) => track.stop());
+                console.log('stream: ', stream);
+                stream.getTracks().forEach((track) => track.stop());
             } catch (error) {
                 console.error('Error checking microphone permission:', error);
             }
@@ -148,7 +148,7 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
     // Function to request microphone access
     const allowMicrophone = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true , video : true });
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
             console.log("Microphone access granted");
             setMicrophoneAllowed(true);
         } catch (error) {
@@ -218,11 +218,11 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
                                                 <h1>{breathIn ? 'Breath in' : 'Breath out'}</h1>
                                                 <p>While we're connecting you to your
                                                     meditation coach</p></div>
-                                        {!microphoneAllowed && (
+                                            {!microphoneAllowed && (
                                                 <button onClick={allowMicrophone} className={Styles.allowMicrophoneBtn}>
                                                     Allow Microphone
                                                 </button>
-                                            )} 
+                                            )}
                                             <div className={Styles.videoContainer}>
                                                 <video
                                                     src="/assets/images/meditation.mp4"
@@ -230,6 +230,9 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
                                                     loop
                                                     muted
                                                     playsInline
+                                                    preload="metadata"
+                                                    poster="/assets/images/meditationThumbnail.png"
+                                                    onContextMenu={(e) => e.preventDefault()}
                                                     className={Styles.video}>
                                                 </video>
                                             </div>

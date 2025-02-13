@@ -134,6 +134,7 @@ const BuyPlan: React.FC<BuyPlanProps> = ({ page, onContinue }) => {
                                         muted
                                         playsInline
                                         preload="metadata"
+                                        poster="/assets/images/meditationThumbnail.png"  
                                         onContextMenu={(e) => e.preventDefault()} 
                                         className={styles.video}>
                                     </video>

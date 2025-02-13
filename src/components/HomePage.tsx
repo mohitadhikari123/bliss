@@ -338,6 +338,9 @@ export default function HomePage({ page, onContinue }: HomePageProps) {
                                                         loop
                                                         muted
                                                         playsInline
+                                                        preload="metadata"
+                                                        poster="/assets/images/meditationThumbnail.png"
+                                                        onContextMenu={(e) => e.preventDefault()}
                                                         className={styles.video}>
                                                     </video>
                                                 </div>
