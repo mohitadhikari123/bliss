@@ -43,15 +43,12 @@ const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-
-//     const token = agoraToken('main');
-// console.log('token  :>> ', token );
-
             const { email, password } = formData;
             const response = await LoginPOST(email, password);
             console.log('response: ', response);
             
             window.localStorage.setItem("accessToken", response.data.data.accessToken);
+            window.localStorage.setItem("username", response.data.data.user.name);
             window.location.href = "/try-demo-now";
         } catch (error) {
             console.error('Error during submission:', error);
