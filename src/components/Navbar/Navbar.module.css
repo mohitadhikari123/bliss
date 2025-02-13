@@ -1,0 +1,67 @@
+.header {
+    display: flex;
+    position: fixed;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    background-color:transparent;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 14px 15px 0 15px;
+  }
+
+  .homeLogo{
+    padding-top:1rem;
+    /* justify-content: center; */
+    /* background-color: #92adf2; */
+  }
+
+  .logo img{
+    width:50px;
+  }
+
+  .logo a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .logoIcon {
+    margin-right: 10px;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .nav a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 1rem;
+  }
+  .logoText{
+    font-size: 40px;
+    font-weight: 600;
+    color: #2099B3;
+  }
+
+  @media (min-width: 768px) {
+    .homeLogo{
+      justify-content: flex-start;
+      background-color: transparent;
+    }
+    .homeLogo{
+      padding-top:1rem;
+    }
+  }

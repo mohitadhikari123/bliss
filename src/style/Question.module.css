@@ -1,0 +1,19 @@
+.question {
+    flex: 1;
+}
+
+.optionButton {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1rem;
+    background-color: white;
+    color: #ff0000;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.optionButton:hover {
+    background-color: #f0f0f0;
+}

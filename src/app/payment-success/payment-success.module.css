@@ -1,0 +1,78 @@
+.container {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Style for the success container */
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  background-color: #e6ffe6; /* Light green background for success */
+  border: 2px solid #28a745; /* Green border for success */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the heading */
+.successContainer h2 {
+  color: #28a745; /* Green text for the heading */
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+/* Style for the paragraph */
+.successContainer p {
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+}
+.ctaButton {
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 2px 4px 7px -4px #000;
+}
+
+
+
+.firstCta {
+  color: white;
+  text-wrap: nowrap;
+  width: 100%;
+}
+/* Optional: Add some animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.successContainer {
+  animation: fadeIn 0.5s ease-in-out;
+}

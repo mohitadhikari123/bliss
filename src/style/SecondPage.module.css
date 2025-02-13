@@ -1,0 +1,228 @@
+.container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  color: #001325e5;
+  margin-bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #001325cc;
+}
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.pointerList {
+  /* margin-bottom: 30px; */
+  width: 100%;
+}
+
+.pointer {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: left;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ctaButton {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #2099b3;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.ctaButton:hover {
+  opacity: 0.9;
+}
+
+.inputGroup {
+  position: relative;
+  min-width: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  min-height: 32vh;
+}
+.inputGroup input {
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-size: 14px;
+  color: #777;
+  transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.inputGroup input:not([type="text"]) {
+  overflow-clip-margin: 0px !important;
+  overflow: clip !important;
+}
+
+.inputGroup input:focus + label,
+.inputGroup input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #777777;
+  background-color: #ffffff;
+  padding: 0 4px;
+  border-radius: 4px;
+  left: 8px;
+}
+
+.content_loader {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  min-height: 85vh;
+  align-items: center;
+}
+
+.message_error {
+  color: red;
+  text-align: left;
+}
+
+.content {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .content > div {
+  display: flex;
+  flex-direction: column;
+} */
+
+.secondCta {
+  flex-direction: row;
+}
+
+.firstCta {
+  background-color: #ffffff;
+  color: #2099b3;
+  text-wrap: nowrap;
+}
+.firstCta :hover {
+  background-color: #e6e0d4;
+}
+
+.nameInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.nameInput:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.formContainer {
+  width: 100%;
+}
+.instructions {
+  list-style: none;
+  padding: 0;
+  margin: 44px 0 0 0;
+}
+
+.instructions li span {
+  margin-right: 12px;
+}
+.instructions li {
+  font-size: 16px;
+    line-height: 16px;
+    color: #666;
+    margin-bottom: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon {
+  padding: 3px;
+}
+@media (min-width: 768px) {
+  .inputGroup {
+    min-width: 420px;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .container {
+    padding: 40px;
+  }
+
+  .nav {
+    display: block;
+  }
+
+  .ctaButton {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    min-height: 80vh;
+    justify-content: end;
+  }
+
+  /* .content > div:first-child {
+    padding-top: 11rem;
+  } */
+
+  /* .ctaButton {
+    padding: 15px 0;
+  } */
+
+  /* .content > div:last-child {
+    width: 100%;
+  } */
+
+  /* .content > div:last-child button {
+    width: 50%;
+  } */
+}

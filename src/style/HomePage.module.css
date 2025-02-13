@@ -1,0 +1,550 @@
+.entryPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(180deg, #8ae7f5 0%, #4eb5f1 100%);
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.entryPage {
+  font-size: 4rem;
+  color: white;
+  font-weight: 300;
+  text-transform: lowercase;
+  font-family: "Comfortaa";
+}
+.container {
+  min-height: 77vh;
+  display: flex;
+  flex-direction: column;
+  /* max-width: 800px; */
+  /* margin: 0 auto; */
+}
+
+.homeLogo {
+  background-color: #92adf2;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.homePage {
+  padding: 20px;
+  /* background: linear-gradient(to bottom, #92adf2, #f3c7f7); */
+  /* height: 100%; */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.logoIcon {
+  margin-right: 5px;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contentRegister {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 700;
+  color: #001325e5;
+  margin-bottom: 8px;
+}
+
+.subTitle {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #001325cc;
+}
+
+.blackText {
+  color: #000000;
+  font-weight: bold;
+}
+
+.highlight {
+  display: flex;
+  background: linear-gradient(to right, #47b0b0, #9986e0);
+  margin-top: 1rem;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #2196f3; /* Fallback for browsers that don't support background-clip */
+}
+
+.ctaButton {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #2099b3;
+  color: white;
+  border: 1px solid #2099b3;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  width: 100%;
+  text-wrap: nowrap;
+}
+
+.ctaButton:hover {
+  opacity: 0.9;
+}
+
+.firstCta {
+  background-color: #ffffff;
+  color: #2099b3;
+}
+.firstCta :hover {
+  background-color: #e6e0d4;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputGroup {
+  min-width: 330px;
+  width: 100%;
+  position: relative;
+  text-align: left;
+}
+
+.inputGroup input {
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup label {
+  /* position: absolute; */
+  left: 12px;
+  top: 12px;
+  font-size: 18px;
+  color: #777;
+  /* transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease; */
+}
+
+.inputGroup input:not([type="text"]) {
+  overflow-clip-margin: 0px !important;
+  overflow: clip !important;
+}
+
+.inputGroup input:focus + label,
+.inputGroup input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #777777;
+  background-color: #ffffff;
+  padding: 0 4px;
+  border-radius: 4px;
+  left: 8px;
+}
+
+.Input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+.content_loader {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  /* min-height:85vh; */
+  align-items: center;
+}
+.phoneInput:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.message_error {
+  color: red;
+  text-align: left;
+}
+
+.message_error span {
+  font-size: 0.8rem;
+}
+.contentOne {
+  justify-content: flex-start !important;
+  min-height: 87vh !important;
+}
+
+.contentOne .welcomeTitle span:last-child {
+  font-size: 22px;
+}
+.buttonWidth {
+  width: 100%;
+  margin-top: 0;
+}
+
+.testimonials {
+  margin-top: 90px;
+  text-align: left;
+  width: 100%;
+  max-width: 652px;
+}
+
+.testimonialHeading {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #5a5c60;
+}
+
+/* Container to allow horizontal scrolling */
+.testimonial_container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px; /* Space between testimonials */
+  padding-bottom: 10px; /* For better UX when scrolling */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+.testimonial_container::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial_container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.testimonial {
+  flex: 0 0 auto;
+  width: 300px; /* Fixed width for each testimonial */
+  border: 1px solid #f97316;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  scroll-snap-align: start;
+}
+
+.testimonial_header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+.testimonialPerson {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.testimonialPerson span {
+  font-size: 13px;
+  color: #5a5c60;
+}
+.testimonial_body {
+  font-size: 14px;
+}
+
+.stars {
+  color: #ffa500;
+}
+
+.stars span {
+  font-size: 1.2rem;
+}
+
+.testimonial p {
+  color: #f97316;
+  margin-top: 10px;
+  font-style: italic;
+}
+.testimonial h3 {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.NoSpam {
+  color: #0013257a;
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 16px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-top: 20px;
+}
+.formContainer {
+  border: 1px solid #edf2f4;
+  padding: 16px;
+  background: #ffffff99;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-top: 20px;
+  /* width: 330px; */
+  border-radius: 8px;
+}
+
+.formContainer h1 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+.memberSection {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.alreadyMember {
+  font-size: 14px;
+  color: #000000;
+}
+.loginLink {
+  font-size: 14px;
+  color: #0099ff;
+  text-decoration: none;
+}
+.loginLink:hover {
+  text-decoration: underline;
+}
+.titleContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 267px;
+  margin-bottom: 15px;
+
+}
+
+.heading {
+  font-size: 24px;
+  color: #333333;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.subHeading {
+  font-size: 14px;
+  line-height: 16px;
+  color: #001325a3;
+  font-weight: 400;
+}
+.videoTitleContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.videoTitleContainer video {
+  height: 255px;
+  mix-blend-mode: darken;
+}
+/* Full-screen overlay */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Popup container */
+.popupContainer {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+}
+
+/* Button group */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Button group */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Student Button */
+.studentButton {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  background: blue;
+  color: white;
+}
+
+.studentButton:hover {
+  opacity: 0.8;
+}
+
+/* Coach Button */
+.coachButton {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  background: green;
+  color: white;
+}
+
+.coachButton:hover {
+  opacity: 0.8;
+}
+
+
+.newUser {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+}
+.resendOTPBtn {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #2099b3;
+}
+.quoteContainer {
+  width: 335px;
+  gap: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.quoteContainer p {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.welcomeContainer {
+  display: flex;
+  width: 330px;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+}
+.welcomeContainer h1 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 30px;
+    /* margin-top:4rem; */
+  }
+
+  .title {
+    font-size: 27px;
+    margin-bottom: 20px;
+  }
+
+  .subTitle {
+    font-size: 22px;
+  }
+
+  .ctaButton {
+    font-size: 1.5rem;
+  }
+  .welcomeTitle span {
+    font-size: 2rem;
+  }
+
+  .welcomeTitle span:last-child {
+    font-size: 2.8rem;
+  }
+
+  .homePage {
+    background: transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    min-height: 70vh;
+    justify-content: flex-start;
+  }
+  .contentRegister {
+    min-height: 80vh;
+    justify-content: space-between;
+  }
+
+  .testimonials {
+    max-width: 326px;
+  }
+  .formContainer {
+    width: 100%;
+  }
+}
