@@ -11,7 +11,7 @@
 }
 
 .container {
-  min-height: 98vh;
+  max-height: 98vh;
   display: flex;
   flex-direction: column;
   padding: 20px 0;
@@ -31,7 +31,7 @@
   justify-content: space-between;
   text-align: center;
   align-items: center;
-  height: 87vh;
+  max-height: 87vh;
   padding: 0 !important;
   width: 100%;
   overflow: hidden;
@@ -646,15 +646,9 @@
 }
 
 @media (max-width: 576px) {
-  /* .main > div {
-    min-height: 80vh;
-  } */
   .plan_selector_container {
     width: 100%;
   }
-}
-
-@media (max-width: 576px) {
   .quoteContainer {
     width: 100%;
   }

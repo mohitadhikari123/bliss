@@ -1,9 +1,10 @@
 'use client';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import dynamic from "next/dynamic";
 import { Page } from '../types';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { usePathname } from "next/navigation";
 
 
 import Styles from '../style/SixthPage.module.css'
@@ -25,8 +26,36 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
     const [isCallReady, setIsCallReady] = useState<boolean>(false);
     const [microphoneAllowed, setMicrophoneAllowed] = useState<boolean>(false);
     const [breathIn, setBreathIn] = useState(true);
+    const pathname = usePathname();
+    const prevPathname = useRef(pathname);
 
+    useEffect(() => {
+    if (prevPathname.current === "/live-session" && pathname !== "/live-session") {
+      localStorage.removeItem("LiveRequestId");
+        localStorage.removeItem("LiveRequestStatus");
+      localStorage.removeItem("LiveSessionId");
+        localStorage.removeItem("agoraToken");
+      console.log("LiveRequestId removed because we left /live-session");
+    }
+    prevPathname.current = pathname;
+  }, [pathname]);
+  
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (window.location.pathname === "/live-session") {
+                localStorage.removeItem("LiveRequestId");
+                localStorage.removeItem("LiveRequestStatus");
+                localStorage.removeItem("LiveSessionId");
+                localStorage.removeItem("agoraToken");
+            }
+        };
 
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
     useEffect(() => {
         let pollInterval: NodeJS.Timeout; // Define the interval outside fetchData
 
@@ -55,7 +84,6 @@ const SixthPage: React.FC<SixthPageProps> = ({ page, onContinue }) => {
                         const newLsId = response.data.data._id;
                         localStorage.setItem("LiveSessionId", newLsId);
                         setLiveSessionId(newLsId);
-
                     } else {
                         const getLiveRsponse = await GetLivePOST(lsId);
                         localStorage.setItem("LiveSessionId", getLiveRsponse.data.data._id);

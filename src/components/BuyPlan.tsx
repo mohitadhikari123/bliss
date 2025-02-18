@@ -6,6 +6,7 @@ import Image from "next/image";
 import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
 import Link from 'next/link';
 import Payment from './Payment';
+import Navbar from './Navbar/page';
 
 
 interface BuyPlanProps {
@@ -121,7 +122,7 @@ const BuyPlan: React.FC<BuyPlanProps> = ({ page, onContinue }) => {
                                     Buy
                                 </button>
                             </>
-                            : <>
+                            : <div><Navbar />
                                 <div className={styles.TextContainer}>
                                     <h1>Congrats!</h1>
                                     <p>You're now a member of bliss</p></div>
@@ -139,7 +140,7 @@ const BuyPlan: React.FC<BuyPlanProps> = ({ page, onContinue }) => {
                                         className={styles.video}>
                                     </video>
                                 </div>
-                            </>
+                            </div>
                     }
                 </div>
             </div>

@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/agoraDashboard/main.js", "src/components/agoraDashboard/main.js", "src/app/ReduxProvider.tsx"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts", "src/components/agoraDashboard/main.js", "src/app/ReduxProvider.tsx"],
   "exclude": ["node_modules"]
 }

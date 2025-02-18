@@ -5,6 +5,7 @@ import { Page } from '../types';
 import styles from '../style/HomePage.module.css';
 import Link from 'next/link';
 import {LoginPOST } from '@/api';
+import Image from "next/image";
 import agoraToken from './agoraDashboard/agoraToken'
 interface LoginProps {
     page: Page;
@@ -17,6 +18,7 @@ interface FormErrors {
 const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
 
     const [isFormValid, setIsFormValid] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [formData, setFormData] = useState({  email: '',   password: '' });
     const [formErrors, setFormErrors] = useState<FormErrors>({});
 
@@ -43,14 +45,18 @@ const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            setLoader(true);
             const { email, password } = formData;
             const response = await LoginPOST(email, password);
             console.log('response: ', response);
             
             window.localStorage.setItem("accessToken", response.data.data.accessToken);
             window.localStorage.setItem("username", response.data.data.user.name);
+            window.localStorage.setItem("upcomingSessions", response.data.data.user.upcomingSessions);
+            setLoader(false)
             window.location.href = "/try-demo-now";
         } catch (error) {
+            setLoader(false)
             console.error('Error during submission:', error);
         }
     };
@@ -118,7 +124,7 @@ const Login: React.FC<LoginProps> = ({ page, onContinue }) => {
                                                 cursor: !isFormValid ? 'not-allowed' : 'pointer',
                                             }}
                                         >
-                                            Login
+                                            {loader ? <Image priority src="/assets/images/loader.gif" width={40} height={40} alt="icon" className={styles.loader} /> : 'Login'} 
                                         </button>
 
 

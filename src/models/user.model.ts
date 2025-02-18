@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema(
       enum: ["CUSTOMER", "COACH"],
       default: "CUSTOMER",
     },
+    upcomingSessions: [
+      {
+        type: Date,
+      },
+    ],
   },
   {
     timestamps: true,

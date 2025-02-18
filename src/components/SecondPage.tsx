@@ -1,15 +1,10 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Page } from '../types';
 import styles from '../style/SecondPage.module.css';
 import Link from 'next/link';
-import { RootState } from '../store';
-import { useDispatch, useSelector } from 'react-redux';
-import { LiveSessionRequestPOST, RegisterPOST, saveAnswers } from '@/api';
-import { setAnswer } from '@/store/pageSlice';
-import posthog from 'posthog-js'
+import { LiveSessionRequestPOST } from '@/api';
 import Image from 'next/image';
-import Navbar from './Navbar/page';
 
 interface SecondPageProps {
     page: Page;
@@ -17,60 +12,22 @@ interface SecondPageProps {
 }
 
 const SecondPage: React.FC<SecondPageProps> = ({ page, onContinue }) => {
-    const dispatch = useDispatch();
-    const [description, setDescription] = useState<string | null>(null);
-    const [title, setTitle] = useState<string | null>(null);
-    const [formData, setFormData] = useState<{ name: string }>({ name: '' });
-    const [formErrors, setFormErrors] = useState<{ name: string }>({ name: '' });
-    const [randomNumber, setRandomNumber] = useState<number>(0);
-
-    useEffect(() => {
-        posthog.onFeatureFlags(function () {
-            if (posthog.isFeatureEnabled('survey_question_one_title') && posthog.isFeatureEnabled('survey_question_one_desc')) {
-                const title = posthog.getFeatureFlagPayload('survey_question_one_title');
-                const description = posthog.getFeatureFlagPayload('survey_question_one_desc');
-                if (typeof description === 'string' && typeof title === 'string') {
-                    setDescription(description);
-                    setTitle(title);
-                }
-            }
-        });
-    }, []);
-
-    useEffect(() => {
-        setRandomNumber(Math.floor(Math.random() * 9000) + 1000);
-    }, []);
-
-    const handleYes = (event: React.FormEvent) => {
-        event.preventDefault();
-        handleAnswerChange(`${page.id} : ${page.questions[0].id} `, "Yes");
-
-        onContinue();
-    };
-    const handleLater = (event: React.FormEvent) => {
-        event.preventDefault();
-        handleAnswerChange(`${page.id} : ${page.questions[1].id} `, "No");
-
-    };
-
-    const handleAnswerChange = (questionId: string, selectedAnswer: string) => {
-        dispatch(setAnswer({ questionId, answer: selectedAnswer }));
-    };
-
-
+    const [loader, setLoader] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            setLoader(true)
             await LiveSessionRequestPOST();
+            setLoader(false)
             onContinue();
         } catch (error) {
+            setLoader(false)
             console.error('Submission error:', error);
         } finally {
 
         }
     };
-
 
     return (
 
@@ -107,7 +64,7 @@ const SecondPage: React.FC<SecondPageProps> = ({ page, onContinue }) => {
 
                                 <div className={styles.buttonContainer}>
                                     <button className={`${styles.secondCta} ${styles.ctaButton}`} type='submit'>
-                                        I'm all ready
+                                        {loader ? <Image priority src="/assets/images/loader.gif" width={40} height={40} alt="icon" className={styles.loader} /> : "I'm all ready"} 
                                     </button>
                                     <Link href="/maybe-later">
                                         <button className={`${styles.firstCta} ${styles.ctaButton}`} type="button" >

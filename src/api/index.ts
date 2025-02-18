@@ -32,6 +32,7 @@ const RegisterPOST = async ({ user }: RegisterData) => {
     console.log("response: ", response);
     showToast("Registration successful!",'success');
     window.localStorage.setItem("accessToken", response.data.data.accessToken);
+    return response; 
   } catch (error: any) {
     if (error.code === "ECONNABORTED") {
       throw new Error("The request took too long. Please try again later.");
@@ -54,6 +55,7 @@ const LiveSessionRequestPOST = async () => {
     const response = await axios(config);
     showToast("Request for Session is Created",'success');
     window.localStorage.setItem("LiveRequestId", response.data.data._id);
+    console.log('response.data.data._id: ', response.data.data._id);
     return response; 
   } catch (error : any) {
     showToast(error.response.data.error, "error");
@@ -217,6 +219,54 @@ const LoginPOST = async (email: string, password: string) => {
     throw error; 
   }
 };
+const upcomingSessionCreatePOST = async (reminderTime : string) => {
+  const config = {
+    method: "post",
+    url: `${API_BASE_URL}/customers/upcomingSession?reminderTime=${reminderTime}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  try {
+    const response = await axios(config);
+    console.log("response: ", response.data.data.upcomingSessions);
+
+    window.localStorage.setItem(
+      "upcomingSessions",
+      response.data.data.upcomingSessions
+    );
+    showToast("Session Schedule Successfully", "success");
+
+    return response; 
+  } catch (error) {
+    console.log(error);
+    throw error; // Ensure errors are thrown so they can be caught
+  }
+};
+const upcomingSessionRemovePOST = async () => {
+  const config = {
+    method: "post",
+    url: `${API_BASE_URL}/customers/removeUpcomingSession?reminderTime=${localStorage.getItem("reminderTime")}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  try {
+    const response = await axios(config);
+    console.log("response: ", response.data.data.upcomingSessions);
+
+    window.localStorage.setItem(
+      "upcomingSessions",
+      response.data.data.upcomingSessions
+    );
+    return response; 
+  } catch (error) {
+    console.log(error);
+    throw error; // Ensure errors are thrown so they can be caught
+  }
+};
 
 export {
   RegisterPOST,
@@ -228,6 +278,8 @@ export {
   EndSessionPOST,
   ChangeStatusPOST,
   GetLivePOST,
+  upcomingSessionCreatePOST,
+  upcomingSessionRemovePOST
 };
 
 export const fetchPages = async (): Promise<Page[]> => {

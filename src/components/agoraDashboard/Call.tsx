@@ -11,7 +11,7 @@ import AgoraRTC, {
     useRemoteUsers
 } from "agora-rtc-react";
 import styles from '../../style/SixthPage.module.css';
-import { EndSessionPOST } from "@/api";
+import { EndSessionPOST, upcomingSessionRemovePOST } from "@/api";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
@@ -240,9 +240,14 @@ function Videos(props: { channelName: string; AppID: string; AgoraToken: string 
         e.preventDefault();
         try {
             const lsId = localStorage.getItem("LiveSessionId");
+            const reminderTime = localStorage.getItem("reminderTime");
             if (lsId) {
                 await EndSessionPOST(lsId);
-            };
+            }
+            if(reminderTime){
+                await upcomingSessionRemovePOST();
+                localStorage.removeItem("reminderTime");
+            }
             setElapsedTime(0);
             window.location.href = "/buy-plans";
         } catch (error) {

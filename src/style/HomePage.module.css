@@ -19,7 +19,7 @@
   font-family: "Comfortaa";
 }
 .container {
-  min-height: 77vh;
+  max-height: 77vh;
   display: flex;
   flex-direction: column;
   /* max-width: 800px; */
@@ -139,7 +139,7 @@
 }
 
 .inputGroup {
-  min-width: 330px;
+  /* min-width: 330px; */
   width: 100%;
   position: relative;
   text-align: left;
@@ -209,6 +209,9 @@
 .buttonWidth {
   width: 100%;
   margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .testimonials {
@@ -314,24 +317,48 @@
   flex-direction: column;
   align-items: baseline;
   margin-top: 20px;
+  width: 330px;
+}
+.sessionsContainer {
+  max-height: 40vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  align-items: center;
+  gap: 4px;
+}
+.noSessions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 310px;
 }
 .formContainer {
-  border: 1px solid #edf2f4;
-  padding: 16px;
-  background: #ffffff99;
-  gap: 16px;
+  padding: 15px 0px;
+  gap: 6px;
   display: flex;
   flex-direction: column;
   align-items: baseline;
-  margin-top: 20px;
+  /* margin-top: 11px; */
   width: 330px;
   border-radius: 8px;
+}
+.sessionsOuterContainer {
+  border-radius: 9px;
+  border: 1px solid #2099b3;
+  margin: 10px;
+  padding: 10px;
 }
 
 .formContainer h1 {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
+  width: 220px;
 }
 .memberSection {
   text-align: center;
@@ -360,7 +387,6 @@
   gap: 16px;
   width: 267px;
   margin-bottom: 15px;
-
 }
 
 .heading {
@@ -458,7 +484,6 @@
   opacity: 0.8;
 }
 
-
 .newUser {
   text-align: center;
   margin-top: 20px;
@@ -474,12 +499,12 @@
   color: #2099b3;
 }
 .quoteContainer {
-  width: 335px;
+  width: 310px;
   gap: 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  /* padding: 20px; */
 }
 .quoteContainer p {
   font-size: 20px;
@@ -489,7 +514,7 @@
 
 .welcomeContainer {
   display: flex;
-  width: 330px;
+  width: 93%;
   align-items: center;
   text-align: center;
   justify-content: space-between;
@@ -498,6 +523,11 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+}
+.welcomeContainer img {
+  position: absolute;
+  top: 15px;
+  right: 50px;
 }
 
 @media (min-width: 768px) {
@@ -529,9 +559,6 @@
   .homePage {
     background: transparent;
   }
-}
-
-@media (max-width: 768px) {
   .content {
     min-height: 70vh;
     justify-content: flex-start;
@@ -544,7 +571,24 @@
   .testimonials {
     max-width: 326px;
   }
+}
+
+@media (max-width: 576px) {
+  .inputContainer {
+    width: 90%;
+  }
+  /* .formContainer{
+    width :90%;
+  } */
+}
+@media (max-width: 360px) {
+  .noSessions {
+    width: 100%;
+  }
   .formContainer {
     width: 100%;
+  }
+  .quoteContainer {
+    width: 250px;
   }
 }

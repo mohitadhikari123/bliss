@@ -3,12 +3,10 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store';
-import { setPages, setCurrentPageIndex, setCurrentPageById } from '../store/pageSlice';
+import { setPages, setCurrentPageIndex } from '../store/pageSlice';
 import { fetchPages, saveAnswers } from '../api';
 import HomePage from './HomePage';
 import SecondPage from './SecondPage';
-import FifthPage from './FifthPage';
-import ProgressBar from './ProgessBar/Page';
 import SixthPage from './SixthPage';
 import BuyPlan from './BuyPlan';
 import MaybeLater from './MaybeLater';
@@ -79,7 +77,6 @@ export default function PageContent() {
     const handleContinue = async () => {
         if (currentPage) {
             try {
-                //await saveAnswers(currentPage.id, answers);
                 const nextPageIndex = currentPageIndex + 1;
                 if (nextPageIndex < pages.length) {
                     dispatch(setCurrentPageIndex(nextPageIndex));
