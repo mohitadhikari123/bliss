@@ -162,6 +162,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
+  justify-content: center;
+  display: flex
+;
 }
 
 .secondCta {

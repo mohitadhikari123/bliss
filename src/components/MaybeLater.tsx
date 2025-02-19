@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Page } from "../types";
 import styles from "../style/BuyPlan.module.css";
 import dayjs from "dayjs";
-import { upcomingSessionCreatePOST} from "../api/index";
+import { upcomingSessionCreatePOST } from "../api/index";
+import Image from 'next/image';
 interface MaybeLaterProps {
   page: Page;
   onContinue: () => void;
@@ -13,6 +14,7 @@ const MaybeLater: React.FC<MaybeLaterProps> = ({ page, onContinue }) => {
   const [reminderTime, setReminderTime] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReminderTime(e.target.value); // Capture the selected date-time from the user input
@@ -25,13 +27,16 @@ const MaybeLater: React.FC<MaybeLaterProps> = ({ page, onContinue }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setLoader(true)
       await upcomingSessionCreatePOST(reminderTime);
+      setLoader(false)
       setIsSubmitted(true);
       setErrorMessage("");
       window.location.href = '/'
       console.log("reminderTime", reminderTime);
       console.log("Reminder time submitted successfully");
     } catch (error) {
+      setLoader(false)
       console.error("Submission error:", error);
       setErrorMessage(
         "Failed to schedule your session. Session may be already Scheduled!"
@@ -70,7 +75,7 @@ const MaybeLater: React.FC<MaybeLaterProps> = ({ page, onContinue }) => {
                   type="submit"
                   className={styles.ctaButton}
                 >
-                  Schedule Session
+                  {loader ? <Image priority src="/assets/images/loader.gif" width={40} height={30} alt="icon" /> : 'Schedule Session'}
                 </button>
                 {errorMessage && (
                   <div style={{ color: "red" }}>{errorMessage}</div>
